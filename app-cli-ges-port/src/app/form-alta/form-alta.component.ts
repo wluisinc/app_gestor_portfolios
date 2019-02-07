@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {PortfoliosService} from '../portfolios.service'; 
 
 @Component({
   selector: 'app-form-alta',
   templateUrl: './form-alta.component.html',
-  styleUrls: ['./form-alta.component.css']
+  styleUrls: ['./form-alta.component.css'],
+  providers: [PortfoliosService]
 })
 export class FormAltaComponent implements OnInit {
   titulo : string;
@@ -12,8 +14,11 @@ export class FormAltaComponent implements OnInit {
   nombreintroducido : string;
   descripcionIntroducida: string;
   ficheroIntroducido: string;
+  servPortfolios: PortfoliosService;
 
-  constructor() { }
+  constructor(sp : PortfoliosService) {
+    this.servPortfolios = sp;
+   }
 
   ngOnInit() { //Metodo correspondiente al evento "Al inicializar componente", es decir, recibe una llamada automática por parte del motor de Angular
     this.titulo = "Alta de portfolios";
@@ -25,5 +30,10 @@ export class FormAltaComponent implements OnInit {
     this.nombreintroducido = "";
     this.descripcionIntroducida = "";
     this.ficheroIntroducido = "";
+    console.log("<<< Se supone que ha limpiado >>>");
+  }
+  darDeAlta() {
+    this.servPortfolios.alta(this.nombreintroducido, this. descripcionIntroducida, this.ficheroIntroducido);
+    console.log("<<< Se supone que ha dado de alta >>>");
   }
 }
